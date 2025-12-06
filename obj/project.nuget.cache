@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "TPiD4Y2yIfE=",
+  "success": true,
+  "projectFilePath": "D:\\Prac\\Git\\dotnet-webapi-deploy\\dotnet-webapi-deploy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MohammedHammad\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.1\\microsoft.aspnetcore.openapi.9.0.1.nupkg.sha512",
+    "C:\\Users\\MohammedHammad\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
