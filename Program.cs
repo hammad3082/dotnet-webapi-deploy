@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Swagger only in Dev
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || true)
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
