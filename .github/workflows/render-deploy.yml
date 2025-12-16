@@ -3,10 +3,12 @@ name: Deploy to Render
 on:
   push:
     branches:
-      - main
+      - render_release
     
     # Ignore changes in the GitHub Actions folder or any other folder
     paths-ignore:
+      - "**/*.md"
+      - "screenshots/**"
       - '.github/**'
       - 'docs/**'
       - 'README.md'

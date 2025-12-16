@@ -15,5 +15,22 @@ namespace dotnet_webapi_deploy.Controllers
                 new { Day = "Tuesday", Temp = 24 }
             });
         }
+
+        [HttpGet("tip")]
+        public IActionResult GetWeatherTip()
+        {
+            var tips = new[]
+            {
+                "Carry an umbrella if rain is expected.",
+                "Wear light clothes on hot days.",
+                "Stay hydrated during summer.",
+                "Layer your clothing in unpredictable weather."
+            };
+
+            var random = new Random();
+            var tip = tips[random.Next(tips.Length)];
+
+            return Ok(new { Tip = tip });
+        }
     }
 }
