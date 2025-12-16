@@ -46,7 +46,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload to S3
-        run: aws s3 cp app.zip s3:// ${{ secrets.EB_S3_BUCKET }}/app.zip
+        run: aws s3 cp app.zip s3://${{ secrets.EB_S3_BUCKET }}/app.zip
 
       - name: Deploy to Elastic Beanstalk
         run: |
