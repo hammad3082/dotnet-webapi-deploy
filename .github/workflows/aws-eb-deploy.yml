@@ -30,10 +30,13 @@ jobs:
         run: dotnet build -c Release
 
       - name: Publish
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish -c Release -o ./publish --no-build
 
       - name: Zip artifact
-        run: zip -r app.zip publish
+        run: |
+          cd publish
+          zip -r ../app.zip .
+          cd ..
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -41,6 +44,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: aws s3 cp app.zip s3:// ${{ secrets.EB_S3_BUCKET }}/app.zip
 
       - name: Deploy to Elastic Beanstalk
         run: |
