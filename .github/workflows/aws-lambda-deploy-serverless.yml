@@ -40,3 +40,13 @@ jobs:
         run: |
           dotnet lambda deploy-serverless \
             --s3-bucket ${{ secrets.EB_S3_BUCKET }} \
+
+      # 6. Fetch and display the API URL from CloudFormation Outputs
+      - name: Get API URL
+        run: |
+          URL=$(aws cloudformation describe-stacks \
+            --stack-name weather-api-stack \
+            --query "Stacks[0].Outputs[?OutputKey=='ServiceEndpoint'].OutputValue" \
+            --output text)
+          echo "The API URL is: $URL"
+          echo "API_URL=$URL" >> $GITHUB_ENV
