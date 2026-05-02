@@ -38,4 +38,5 @@ jobs:
       # 5. Build, Zip, Upload, and Deploy everything
       - name: Deploy Serverless Stack
         run: |
-          dotnet lambda deploy-serverless
+          dotnet lambda deploy-serverless \
+            --s3-bucket ${{ secrets.EB_S3_BUCKET }} \
