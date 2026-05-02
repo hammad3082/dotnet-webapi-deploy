@@ -12,7 +12,8 @@ namespace dotnet_webapi_deploy.Controllers
             return Ok(new[]
             {
                 new { Day = "Monday", Temp = 22 },
-                new { Day = "Tuesday", Temp = 24 }
+                new { Day = "Tuesday", Temp = 24 },
+                new { Day = "Wednesday", Temp = 25 }
             });
         }
 
