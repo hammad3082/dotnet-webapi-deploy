@@ -3,7 +3,7 @@ name: Deploy Weather API to AWS Lambda
 on:
   push:
     branches:
-      - main  # Adjust this if your branch is named 'master' or 'release'
+      - aws_lambda_serverless_release  # Adjust this if your branch is named 'master' or 'release'
   workflow_dispatch: # Allows you to run the deployment manually from GitHub
 
 jobs:
@@ -38,5 +38,4 @@ jobs:
       # 5. Build, Zip, Upload, and Deploy everything
       - name: Deploy Serverless Stack
         run: |
-          dotnet lambda deploy-serverless \
-            --s3-bucket ${{ secrets.EB_S3_BUCKET }} \
+          dotnet lambda deploy-serverless
