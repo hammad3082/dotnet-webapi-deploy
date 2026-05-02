@@ -1,0 +1,11 @@
+{
+  "Information": [
+    "This file stores deployment settings for the dotnet lambda tool."
+  ],
+  "region": "ap-south-1",
+  "configuration": "Release",
+  "framework": "net8.0",
+  "stack-name": "weather-api-stack",
+  "s3-prefix": "weather-api/",
+  "template": "serverless.template"
+}
