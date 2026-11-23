@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace dotnet_webapi_deploy.Controllers
 {
@@ -32,6 +33,12 @@ namespace dotnet_webapi_deploy.Controllers
             var tip = tips[random.Next(tips.Length)];
 
             return Ok(new { Tip = tip });
+        }
+
+        [HttpGet("serverTime")]
+        public IActionResult GetServerTime()
+        {
+            return Ok(DateTime.Now);
         }
     }
 }
