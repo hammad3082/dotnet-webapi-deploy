@@ -1,0 +1,49 @@
+name: Trigger auto deployment for ca-weather-api-dev-cin-01
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ rel_Azure_Container_App ]
+    paths:
+    - '**'
+    - '.github/workflows/ca-weather-api-dev-cin-01-AutoDeployTrigger-47b58480-a4b7-4eaa-b27e-1392241401e7.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CAWEATHERAPIDEVCIN01_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.CAWEATHERAPIDEVCIN01_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.CAWEATHERAPIDEVCIN01_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          _targetLabelKey_: _targetLabel_
+          registryUrl: crweatherapidev.azurecr.io
+          registryUsername: ${{ secrets.CAWEATHERAPIDEVCIN01_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CAWEATHERAPIDEVCIN01_REGISTRY_PASSWORD }}
+          containerAppName: ca-weather-api-dev-cin-01
+          resourceGroup: rg-dotnet-dev-cin-01
+          imageToBuild: crweatherapidev.azurecr.io/ca-weather-api-dev-cin-01:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
