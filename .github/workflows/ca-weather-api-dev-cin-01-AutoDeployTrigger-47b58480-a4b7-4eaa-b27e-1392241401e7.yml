@@ -6,9 +6,9 @@ on:
   push:
     branches: 
       [ rel_Azure_Container_App ]
-    paths:
-    - '**'
-    - '.github/workflows/ca-weather-api-dev-cin-01-AutoDeployTrigger-47b58480-a4b7-4eaa-b27e-1392241401e7.yml'
+    # paths:
+    # - '**'
+    # - '.github/workflows/ca-weather-api-dev-cin-01-AutoDeployTrigger-47b58480-a4b7-4eaa-b27e-1392241401e7.yml'
 
   # Allow manual trigger 
   workflow_dispatch:      
@@ -27,23 +27,20 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.CAWEATHERAPIDEVCIN01_AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.CAWEATHERAPIDEVCIN01_AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.CAWEATHERAPIDEVCIN01_AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D42BAD1530E745E788BD730BF12A5B5D }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_56C4B98C2743422486C0C44C24653ABF }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_104E3EA444BA4745A6CBE09A9FF5C7AA }}
 
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
+          dockerfilePath: Dockerfile
           registryUrl: crweatherapidev.azurecr.io
           registryUsername: ${{ secrets.CAWEATHERAPIDEVCIN01_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.CAWEATHERAPIDEVCIN01_REGISTRY_PASSWORD }}
           containerAppName: ca-weather-api-dev-cin-01
           resourceGroup: rg-dotnet-dev-cin-01
           imageToBuild: crweatherapidev.azurecr.io/ca-weather-api-dev-cin-01:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
 
 
